@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// lancer le niveau 1 du jeu
     /// </summary>
-    private void CommencerLeJeu()
+    public void CommencerLeJeu()
     {
         //Definition du temps en fonction du niveau dans le jeu
         if(niveau == 1)

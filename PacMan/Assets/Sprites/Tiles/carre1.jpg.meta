@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4385b1b0c59ccd3439271e7b028eb2c2
+guid: a9e3da3b0eb3fa04583ec3543278335c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 869152981755802426
-    second: PacManAssets_Map_Back&Maze_0
+      213: -1906286589287110628
+    second: carre1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PacManAssets_Map_Back&Maze_0
+      name: carre1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 480
-        height: 640
+        width: 250
+        height: 250
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a33b60d280adf0c00800000000000000
-      internalID: 869152981755802426
+      spriteID: c18637d62728b85e0800000000000000
+      internalID: -1906286589287110628
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PacManAssets_Map_Back&Maze_0: 869152981755802426
+      carre1_0: -1906286589287110628
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
