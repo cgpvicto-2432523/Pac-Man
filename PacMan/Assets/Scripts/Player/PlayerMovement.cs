@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
+    public float vitesse = 5f;
     public InputActionAsset inputActions;
     private InputAction mvmtAction;
     private Rigidbody2D rb;
@@ -31,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
         if (direction != Vector2.zero)
         {
             directionActuelle= direction.normalized;
-            Debug.Log("Direction: " + directionActuelle); //tester le fonctionnement des directions
         }
     }
 
@@ -40,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        Vector2 deplacement = rb.position + directionActuelle * speed * Time.fixedDeltaTime;
+        Vector2 deplacement = rb.position + directionActuelle * vitesse * Time.fixedDeltaTime;
         rb.MovePosition(deplacement);
     }
 
