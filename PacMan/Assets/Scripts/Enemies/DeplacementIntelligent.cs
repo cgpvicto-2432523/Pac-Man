@@ -30,7 +30,14 @@ public class DeplacementIntelligent : MonoBehaviour
     private void Start()
     {
         vitesseActuelle = vitesseNormale;
+
+        if (spriteNormal != null)
+        {
+            spriteRenderer.sprite = spriteNormal;
+        }
+
         ChoisirNouvelleDirection();
+        Invoke("ChoisirNouvelleDirection", 2f);
     }
 
     /// <summary>
@@ -93,9 +100,10 @@ public class DeplacementIntelligent : MonoBehaviour
             }
             else
             {
-                // Le fantôme tue le joueur
+                // Le fantôme tue diminue la vie du joueur
                 GameManager.Instance.PerdreUneVie();
             }
+
         }
     }
 }

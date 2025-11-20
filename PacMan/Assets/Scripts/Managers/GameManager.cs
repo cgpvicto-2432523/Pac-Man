@@ -1,3 +1,5 @@
+﻿using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,6 +10,7 @@ public class GameManager : MonoBehaviour
     private int score = 0;
     public int vie = 3;
     public int niveau = 1;
+    public float tempsVulnerabilite = 8f;
 
     public float tempsNiveau1 = 60f;
     public float tempsNiveau2 = 120f;
@@ -15,6 +18,7 @@ public class GameManager : MonoBehaviour
     private float temps; //Temps restant
     private int totalDeGains = 0; //Il s'agit du nombre de point blanc que pacman doit manger
     private int gainCollecte = 0;
+    private float compteurTempsVulnérabilite;
 
     /// <summary>
     /// Initialisation du Singleton
@@ -41,13 +45,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Mise a jour du temps (le diminu�)
+        //Mise a jour du temps (le diminué)
         temps = temps - Time.deltaTime;
 
         if (temps <= 0)
         {
             PartieTerminer();
         }
+
+        TempsDeVulnerabilite();
     }
 
     /// <summary>
@@ -55,25 +61,26 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void CommencerLeJeu()
     {
+        //Nombre de pelettes collectionné a 0
+        gainCollecte = 0;
+
+        totalDeGains = GameObject.FindGameObjectsWithTag("pellet").Length;
+
         //Definition du temps en fonction du niveau dans le jeu
-        if(niveau == 1)
+        if (niveau == 1)
         {
             temps = tempsNiveau1;
+            SceneManager.LoadScene("Level1");
         }
         else if(niveau == 2)
         {
             temps = tempsNiveau2;
+            SceneManager.LoadScene("Level2");
         }
         else
         {
             temps = 30f;
         }
-
-        //Nombre de pelettes collectionn� a 0
-        gainCollecte = 0;
-
-        totalDeGains = GameObject.FindGameObjectsWithTag("pellet").Length;
-
         //Teste
         Debug.Log("Niveau " + niveau + " - Temps: " + temps + "s - Pellets: " + totalDeGains);
     }
@@ -95,7 +102,7 @@ public class GameManager : MonoBehaviour
     public void CollecterPellet()
     {
         gainCollecte++;
-        Debug.Log ("Pellets collec�s: "+  gainCollecte + "/" + totalDeGains);
+        Debug.Log ("Pellets collecés: "+  gainCollecte + "/" + totalDeGains);
 
         if (gainCollecte >= totalDeGains)
         {
@@ -109,36 +116,19 @@ public class GameManager : MonoBehaviour
     public void PerdreUneVie()
     {
         vie--;
-        Debug.Log("Vies restantes: " + vie);
-
         if (vie <= 0)
         {
             PartieTerminer();
         }
-        else
-        {
-            ReplacerLeJoueur();
-        }
     }
 
-    /// <summary>
-    /// Remettre le joueur a la position de d�part
-    /// </summary>
-    private void ReplacerLeJoueur()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            player.transform.position = Vector3.zero; 
-        }
-    }
 
     /// <summary>
-    /// Niveau termin�
+    /// Niveau terminé
     /// </summary>
     private void NiveauComplete()
     {
-        Debug.Log("=== NIVEAU " + niveau + " TERMIN�! ===");
+        Debug.Log("=== NIVEAU " + niveau + " TERMINÉ! ===");
         niveau++;
 
         if (niveau > 2)
@@ -157,12 +147,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Victoire()
     {
-        Debug.Log("=== VICTOIRE! Score final: " + score + " ===");
-        // Plus tard: SceneManager.LoadScene("Victory");
+        if (niveau == 1)
+            niveau++;
+        else
+            niveau = 1;
     }
 
     /// <summary>
-    /// Game Over
+    /// Jeu perdu
     /// </summary>
     private void PartieTerminer()
     {
@@ -177,4 +169,58 @@ public class GameManager : MonoBehaviour
     {
         return temps;
     }
+
+
+    /// <summary>
+    /// Rendre les fantomes vulnérables
+    /// </summary>
+
+    public void ActiverVulnerabilite()
+    {
+        GameObject[] lesFantomes = GameObject.FindGameObjectsWithTag("enemies");
+
+        foreach (GameObject f in lesFantomes)
+        {
+            DeplacementIntelligent fantome = f.GetComponent<DeplacementIntelligent>();
+            if (fantome != null)
+                fantome.ModifierLaVulnerabilite(true);
+        }
+
+        compteurTempsVulnérabilite = tempsVulnerabilite;
+    }
+
+    /// <summary>
+    /// Gestion du temps de vulnerabilité des énémies
+    /// </summary>
+    public void TempsDeVulnerabilite()
+    {
+        if (compteurTempsVulnérabilite > 0)
+        {
+            compteurTempsVulnérabilite -= Time.deltaTime;
+
+            if (compteurTempsVulnérabilite <= 0)
+            {
+                ResetVulnerabilite();
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Quand le timer atteint zéro les fantomes redeviennent invulnérables
+    /// </summary>
+    private void ResetVulnerabilite()
+    {
+        GameObject[] lesFantomes = GameObject.FindGameObjectsWithTag("enemies");
+
+        foreach (GameObject f in lesFantomes)
+        {
+            DeplacementIntelligent fantome = f.GetComponent<DeplacementIntelligent>();
+            if (fantome != null)
+                fantome.ModifierLaVulnerabilite(false);
+        }
+
+        compteurTempsVulnérabilite = 0;
+    }
 }
+
