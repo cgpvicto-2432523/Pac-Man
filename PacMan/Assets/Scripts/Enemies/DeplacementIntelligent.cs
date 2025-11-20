@@ -37,7 +37,7 @@ public class DeplacementIntelligent : MonoBehaviour
         }
 
         ChoisirNouvelleDirection();
-        Invoke("ChoisirNouvelleDirection", 2f);
+        InvokeRepeating("ChoisirNouvelleDirection", 2f, 2f); //source: https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.InvokeRepeating.html
     }
 
     /// <summary>
