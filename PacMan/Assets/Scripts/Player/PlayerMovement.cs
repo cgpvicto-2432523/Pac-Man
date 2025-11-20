@@ -27,10 +27,10 @@ public class PlayerMovement : MonoBehaviour
     {
         direction = mvmtAction.ReadValue<Vector2>();
 
-        // Changer la direction actuelle seulement si on appuie sur une touche
         if (direction != Vector2.zero)
         {
-            directionActuelle= direction.normalized;
+            directionActuelle = direction.normalized;
+            TournerSelonDirection(directionActuelle);
         }
     }
 
@@ -41,6 +41,25 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 deplacement = rb.position + directionActuelle * vitesse * Time.fixedDeltaTime;
         rb.MovePosition(deplacement);
+    }
+
+    /// <summary>
+    /// Oriente Pac-Man selon la direction.
+    /// source: https://docs.unity3d.com/ScriptReference/Quaternion.Euler.html pour la méthode Quaternion.Euler()
+    /// </summary>
+    private void TournerSelonDirection(Vector2 direction)
+    {
+        if (direction == Vector2.up)
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+
+        else if (direction == Vector2.down)
+            transform.rotation = Quaternion.Euler(0, 0, -90);
+
+        else if (direction == Vector2.left)
+            transform.rotation = Quaternion.Euler(0, 180, 0);  
+
+        else if (direction == Vector2.right)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     /// <summary>
