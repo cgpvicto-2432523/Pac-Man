@@ -63,13 +63,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Détection de collision avec les collectibles
+    /// Détection de collision avec les fantômes
     /// </summary>
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Géré par les scripts Pellet.cs et GhostAI.cs
-        // On laisse vide pour l'instant
+
     }
 
     /// <summary>

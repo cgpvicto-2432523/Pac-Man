@@ -35,23 +35,11 @@ public class Pellet : MonoBehaviour
             // Si c'est un booster, activer le mode vulnérable des fantômes
             if (estUnBooster)
             {
-                ActiverModeBooster();
+                GameManager.Instance.ActiverVulnerabilite();
             }
 
             // Détruire le pellet
             Destroy(gameObject);
         }
-    }
-
-
-    /// <summary>
-    /// Active le mode où les fantômes deviennent vulnérables
-    /// </summary>
-    private void ActiverModeBooster()
-    {
-        Debug.Log("POWER PELLET ACTIVÉ!");
-
-        // Trouver tous les fantômes et les rendre vulnérables
-        // (On fera ça plus tard quand les fantômes existeront)
     }
 }
