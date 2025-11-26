@@ -3,6 +3,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public int points = 2; //Combien de point, le pacman gagne quand il consomme le pellet
+    public bool estUnBooster = false; // S'agit-il d'un booster
+
     public float vitesse = 5f;
     public InputActionAsset inputActions;
     private InputAction mvmtAction;
@@ -68,7 +71,24 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Vérifier si c'est le joueur qui touche le pellet
+        if (collision.CompareTag("Player"))
+        {
+            // Ajouter les points
+            GameManager.Instance.AjouterLeScore(points);
 
+            // Incrémenter le compteur de pellets collectés
+            GameManager.Instance.CollecterPellet();
+
+            // Si c'est un booster, activer le mode vulnérable des fantômes
+            if (estUnBooster)
+            {
+                GameManager.Instance.ActiverVulnerabilite();
+            }
+
+            // Détruire le pellet
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>

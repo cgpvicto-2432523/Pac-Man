@@ -25,10 +25,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        // S'assurer qu'il n'y a qu'un seul GameManager, en utilisant notre singleton
+        // S'assurer qu'il n'y a qu'un seul GameManager
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject); //afin de maintenir notre gameobject persistant et ceux même quand on changera de scène
         }
         else
         {
