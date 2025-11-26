@@ -39,21 +39,21 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        CommencerLeJeu();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         //Mise a jour du temps (le diminué)
-        temps = temps - Time.deltaTime;
+        //temps = temps - Time.deltaTime;
 
-        if (temps <= 0)
-        {
-            PartieTerminer();
-        }
+        //if (temps <= 0)
+        //{
+          //  PartieTerminer();
+        //}
 
-        TempsDeVulnerabilite();
+        //TempsDeVulnerabilite();
     }
 
     /// <summary>
@@ -61,16 +61,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void CommencerLeJeu()
     {
+        Debug.Log("Niveau " + niveau + " - Temps: " + temps + "s - Pellets: " + totalDeGains);
         //Nombre de pelettes collectionné a 0
         gainCollecte = 0;
 
-        totalDeGains = GameObject.FindGameObjectsWithTag("pellet").Length;
+        //totalDeGains = GameObject.FindGameObjectsWithTag("pellet").Length;
 
         //Definition du temps en fonction du niveau dans le jeu
         if (niveau == 1)
         {
             temps = tempsNiveau1;
-            SceneManager.LoadScene("Level1");
+            SceneManager.LoadScene(1);
         }
         else if(niveau == 2)
         {
@@ -126,7 +127,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Niveau terminé
     /// </summary>
-    private void NiveauComplete()
+    public void NiveauComplete()
     {
         Debug.Log("=== NIVEAU " + niveau + " TERMINÉ! ===");
         niveau++;
@@ -145,7 +146,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Victoire totale
     /// </summary>
-    private void Victoire()
+    public void Victoire()
     {
         if (niveau == 1)
             niveau++;
@@ -156,7 +157,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Jeu perdu
     /// </summary>
-    private void PartieTerminer()
+    public void PartieTerminer()
     {
         Debug.Log("=== GAME OVER! Score final: " + score + " ===");
         // Plus tard: SceneManager.LoadScene("GameOver");
@@ -209,7 +210,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Quand le timer atteint zéro les fantomes redeviennent invulnérables
     /// </summary>
-    private void ResetVulnerabilite()
+    public void ResetVulnerabilite()
     {
         GameObject[] lesFantomes = GameObject.FindGameObjectsWithTag("enemies");
 
