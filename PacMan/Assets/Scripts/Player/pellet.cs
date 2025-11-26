@@ -18,6 +18,11 @@ public class pellet : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="collision"></param>
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Vérifier si c'est le joueur qui touche le pellet
