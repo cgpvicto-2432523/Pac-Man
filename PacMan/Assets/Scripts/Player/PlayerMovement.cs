@@ -3,9 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public int points = 2; //Combien de point, le pacman gagne quand il consomme le pellet
-    public bool estUnBooster = false; // S'agit-il d'un booster
-
     public float vitesse = 5f;
     public InputActionAsset inputActions;
     private InputAction mvmtAction;
