@@ -71,24 +71,7 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Vérifier si c'est le joueur qui touche le pellet
-        if (collision.CompareTag("Player"))
-        {
-            // Ajouter les points
-            GameManager.Instance.AjouterLeScore(points);
 
-            // Incrémenter le compteur de pellets collectés
-            GameManager.Instance.CollecterPellet();
-
-            // Si c'est un booster, activer le mode vulnérable des fantômes
-            if (estUnBooster)
-            {
-                GameManager.Instance.ActiverVulnerabilite();
-            }
-
-            // Détruire le pellet
-            Destroy(gameObject);
-        }
     }
 
     /// <summary>

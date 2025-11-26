@@ -47,14 +47,14 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //Mise a jour du temps (le diminué)
-        //temps = temps - Time.deltaTime;
+        temps = temps - Time.deltaTime;
 
-        //if (temps <= 0)
-        //{
-          //  PartieTerminer();
-        //}
+        if (temps <= 0)
+        {
+            PartieTerminer();
+        }
 
-        //TempsDeVulnerabilite();
+        TempsDeVulnerabilite();
     }
 
     /// <summary>
@@ -122,8 +122,23 @@ public class GameManager : MonoBehaviour
         {
             PartieTerminer();
         }
+        else
+        {
+            FaireReapparaitreJoueur();
+        }
     }
 
+    /// <summary>
+    /// Faire réapparaître le joueur à la position de départ
+    /// </summary>
+    private void FaireReapparaitreJoueur()
+    {
+        GameObject joueur = GameObject.FindGameObjectWithTag("Player");
+        if (joueur != null)
+        {
+            joueur.transform.position = Vector3.zero; 
+        }
+    }
 
     /// <summary>
     /// Niveau terminé
