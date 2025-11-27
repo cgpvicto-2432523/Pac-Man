@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Code provenant de L'IA
+/// </summary>
 public class AnimatedSprite : MonoBehaviour
 {
     public Sprite[] sprites = new Sprite[0];

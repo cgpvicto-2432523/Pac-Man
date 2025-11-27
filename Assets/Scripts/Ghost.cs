@@ -35,16 +35,16 @@ public class Ghost : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        ResetState();
+        ResetDeLEtat();
     }
 
     /// <summary>
     /// 
     /// </summary>
-    public void ResetState()
+    public void ResetDeLEtat()
     {
         gameObject.SetActive(true); // S'assurer que le fantôme est actif
-        movement.ResetState(); // Réinitialiser le mouvement
+        movement.ResetDeLEtat(); // Réinitialiser le mouvement
 
         //desactiver tous les comportements additionnels (vulnérable, en chasse)
         frightened.Disable();
@@ -69,7 +69,7 @@ public class Ghost : MonoBehaviour
     /// Change la position du fantôme 
     /// </summary>
     /// <param name="position"></param>
-    public void SetPosition(Vector3 position)
+    public void DefinirLaDirection(Vector3 position)
     {
         position.z = transform.position.z;
         transform.position = position;
@@ -85,9 +85,9 @@ public class Ghost : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman"))
         {
             if (frightened.enabled) {
-                GameManager.Instance.GhostEaten(this); //Si le fantome n'est pas vulnérable pacman perd une vie
+                GameManager.Instance.FantomeMange(this); //Si le fantome n'est pas vulnérable pacman perd une vie
             } else {
-                GameManager.Instance.PacmanEaten(); //si il était en mode vulnérable pacman se régale
+                GameManager.Instance.PacmanMange(); //si il était en mode vulnérable pacman se régale
             }
         }
     }

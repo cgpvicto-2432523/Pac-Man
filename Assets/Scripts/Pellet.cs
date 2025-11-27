@@ -10,9 +10,9 @@ public class Pellet : MonoBehaviour
     /// <summary>
     /// Appelé quand Pacman mange la pelette
     /// </summary>
-    public virtual void Eat()
+    public virtual void Manger()
     {
-        GameManager.Instance.PelletEaten(this);
+        GameManager.Instance.PelletNormalManger(this);
     }
 
     /// <summary>
@@ -22,7 +22,7 @@ public class Pellet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Pacman")) {
-            Eat();
+            Manger();
         }
     }
 

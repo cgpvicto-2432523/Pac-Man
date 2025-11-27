@@ -50,10 +50,10 @@ public class GhostFrightened : GhostBehavior
     /// <summary>
     /// fantome mangé par pacman
     /// </summary>
-    private void Eaten()
+    private void Manger()
     {
         eaten = true;
-        ghost.SetPosition(ghost.home.inside.position); // remetre le fantome dans la maison
+        ghost.DefinirLaDirection(ghost.home.inside.position); // remetre le fantome dans la maison
         ghost.home.Enable(duration);//il y restera un moment
 
         // Afficher seulement les yeux 
@@ -123,7 +123,7 @@ public class GhostFrightened : GhostBehavior
                 }
             }
 
-            ghost.movement.SetDirection(direction);
+            ghost.movement.DefinirLaDirection(direction);
         }
     }
 
@@ -137,7 +137,7 @@ public class GhostFrightened : GhostBehavior
         if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman"))
         {
             if (enabled) {
-                Eaten();
+                Manger();
             }
         }
     }

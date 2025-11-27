@@ -4,8 +4,8 @@ public class PowerPellet : Pellet
 {
     public float duration = 8f;
 
-    public override void Eat()
+    public override void Manger()
     {
-        GameManager.Instance.PowerPelletEaten(this);
+        GameManager.Instance.MangerPowerPelette(this);
     }
 }

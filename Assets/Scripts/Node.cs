@@ -33,6 +33,11 @@ public class Node : MonoBehaviour
     /// <param name="direction">Direction à tester</param>
     private void CheckAvailableDirection(Vector2 direction)
     {
+        ///Inspire de l'IA et de la documentation officielle
+        
+
+
+
         // Lance un BoxCast pour détecter un obstacle
         // - Position: position du Node (intersection)
         // - Taille: 0.5×0.5
@@ -42,7 +47,7 @@ public class Node : MonoBehaviour
         // - Layer: seulement les obstacles
         RaycastHit2D hit = Physics2D.BoxCast(transform.position, Vector2.one * 0.5f, 0f, direction, 1f, obstacleLayer);
 
-        // If no collider is hit then there is no obstacle in that direction
+        // si on n'a pas de hit avec un collider alors la direction est available
         if (hit.collider == null) {
             availableDirections.Add(direction);
         }

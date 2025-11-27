@@ -31,14 +31,14 @@ public class Movement : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        ResetState();
+        ResetDeLEtat();
     }
 
     /// <summary>
     /// Réinitialise le mouvement à son état de départ
     /// Utilisé au début du jeu ou après une mort
     /// </summary>
-    public void ResetState()
+    public void ResetDeLEtat()
     {
         speedMultiplier = 1f;                    // Vitesse normale
         direction = initialDirection;             // Direction initiale
@@ -56,7 +56,7 @@ public class Movement : MonoBehaviour
         // Si une direction est en attente, essayer de l'appliquer
         if (nextDirection != Vector2.zero)
         {
-            SetDirection(nextDirection);
+            DefinirLaDirection(nextDirection);
         }
     }
 
@@ -77,10 +77,10 @@ public class Movement : MonoBehaviour
     /// </summary>
     /// <param name="direction">Nouvelle direction souhaitée</param>
     /// <param name="forced">Si true, ignore la détection d'obstacles</param>
-    public void SetDirection(Vector2 direction, bool forced = false)
+    public void DefinirLaDirection(Vector2 direction, bool forced = false)
     {
         // Changer la direction seulement si pas d'obstacle OU si forcé
-        if (forced || !Occupied(direction))
+        if (forced || !DirectionIndisponible(direction))
         {
             this.direction = direction;       // Appliquer la direction
             nextDirection = Vector2.zero;     // Vider la file d'attente
@@ -99,12 +99,12 @@ public class Movement : MonoBehaviour
     /// </summary>
     /// <param name="direction">Direction à vérifier</param>
     /// <returns>True si un obstacle est présent, False sinon</returns>
-    public bool Occupied(Vector2 direction)
+    public bool DirectionIndisponible(Vector2 direction)
     {
-            // If no collider is hit then there is no obstacle in that direction
-            RaycastHit2D hit = Physics2D.BoxCast(transform.position, Vector2.one * 0.75f, 0f, direction, 1.5f, obstacleLayer);
-            return hit.collider != null;
-        
+        //implementer avec l'IA
 
+        // Si il y'a pas de detection d'un collider alors la direction est disponible
+        RaycastHit2D hit = Physics2D.BoxCast(transform.position, Vector2.one * 0.75f, 0f, direction, 1.5f, obstacleLayer);
+        return hit.collider != null;
     }
 }

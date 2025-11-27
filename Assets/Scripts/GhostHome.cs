@@ -38,11 +38,12 @@ public class GhostHome : GhostBehavior
     {
         // Si en mode Home et touche un obstacle, inverser la direction
         if (enabled && collision.gameObject.layer == LayerMask.NameToLayer("Obstacle")) {
-            ghost.movement.SetDirection(-ghost.movement.direction);
+            ghost.movement.DefinirLaDirection(-ghost.movement.direction);
         }
     }
 
     /// <summary>
+    /// IA
     /// Animation de sortie de la base en 2 étapes
     /// 1. Aller au point "inside" (entrée de la base)
     /// 2. Sortir au point "outside" (sortie de la base)
@@ -50,7 +51,7 @@ public class GhostHome : GhostBehavior
     private IEnumerator ExitTransition()
     {
         // Désactiver le mouvement normal pendant l'animation manuelle
-        ghost.movement.SetDirection(Vector2.up, true);
+        ghost.movement.DefinirLaDirection(Vector2.up, true);
         ghost.movement.rb.isKinematic = true;   // Désactiver la physique
         ghost.movement.enabled = false;          // Désactiver le script de mouvement
 
@@ -62,7 +63,7 @@ public class GhostHome : GhostBehavior
         while (elapsed < duration)
         {
             // Interpolation linéaire entre position actuelle et "inside"
-            ghost.SetPosition(Vector3.Lerp(position, inside.position, elapsed / duration));
+            ghost.DefinirLaDirection(Vector3.Lerp(position, inside.position, elapsed / duration));
             elapsed += Time.deltaTime;
             yield return null;  // Attendre la prochaine frame
         }
@@ -73,14 +74,14 @@ public class GhostHome : GhostBehavior
         while (elapsed < duration)
         {
             // Interpolation linéaire entre "inside" et "outside"
-            ghost.SetPosition(Vector3.Lerp(inside.position, outside.position, elapsed / duration));
+            ghost.DefinirLaDirection(Vector3.Lerp(inside.position, outside.position, elapsed / duration));
             elapsed += Time.deltaTime;
             yield return null;  // Attendre la prochaine frame
         }
 
         // ÉTAPE 3: Sortie terminée, réactiver le mouvement normal
         // Choisir aléatoirement gauche ou droite
-        ghost.movement.SetDirection(new Vector2(Random.value < 0.5f ? -1f : 1f, 0f), true);
+        ghost.movement.DefinirLaDirection(new Vector2(Random.value < 0.5f ? -1f : 1f, 0f), true);
         ghost.movement.rb.isKinematic = false;   // Réactiver la physique
         ghost.movement.enabled = true;           // Réactiver le mouvement
     }

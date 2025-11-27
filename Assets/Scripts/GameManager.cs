@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        NewGame();
+        NouveauJeu();
     }
 
     /// <summary>
@@ -48,25 +48,25 @@ public class GameManager : MonoBehaviour
     {
         if (lives <= 0 && Input.anyKeyDown)
         {
-            NewGame();
+            NouveauJeu();
         }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    private void NewGame()
+    private void NouveauJeu()
     {
-        SetScore(0);
-        SetLives(3);
+        AJustementDuScore(0);
+        AjustementDesVies(3);
         round = 1;
-        NewRound();
+        NouveauNiveau();
     }
 
     /// <summary>
     /// Nouveau round
     /// </summary>
-    private void NewRound()
+    private void NouveauNiveau()
     {
         gameOverText.enabled = false;
 
@@ -78,17 +78,17 @@ public class GameManager : MonoBehaviour
 
         if (round > 1)
         {
-            IncreaseDifficulty();
+            AugmenterLaDifficulter();
         }
 
-        ResetState();
+        ResetDeLEtat();
     }
 
 
     /// <summary>
     /// Augmente la vitesse en fonction du niveau
     /// </summary>
-    private void IncreaseDifficulty()
+    private void AugmenterLaDifficulter()
     {
 
         // Augmenter vitesse des fantômes
@@ -105,17 +105,20 @@ public class GameManager : MonoBehaviour
     /// <summary>
     ///  restate a l'état de départ des pacmans et fantomes.
     /// </summary>
-    private void ResetState()
+    private void ResetDeLEtat()
     {
         for (int i = 0; i < ghosts.Length; i++)
         {
-            ghosts[i].ResetState();
+            ghosts[i].ResetDeLEtat();
         }
 
-        pacman.ResetState();
+        pacman.ResetDeLEtat();
     }
 
-    private void GameOver()
+    /// <summary>
+    /// 
+    /// </summary>
+    private void FinDePartie()
     {
         gameOverText.enabled = true;
         if (SoundManager.instance != null)
@@ -130,31 +133,40 @@ public class GameManager : MonoBehaviour
         pacman.gameObject.SetActive(false);
     }
 
-    private void SetLives(int lives)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="lives"></param>
+    private void AjustementDesVies(int lives)
     {
         this.lives = lives;
         livesText.text = "x" + lives.ToString();
     }
 
-    private void SetScore(int score)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="score"></param>
+    private void AJustementDuScore(int score)
     {
         this.score = score;
         scoreText.text = score.ToString().PadLeft(2, '0');
     }
 
-    public void PacmanEaten()
+    /// <summary>
+    /// 
+    /// </summary>
+    public void PacmanMange()
     {
-        pacman.DeathSequence();
-
-        SetLives(lives - 1);
+        AjustementDesVies(lives - 1);
 
         if (lives > 0)
         {
-            Invoke(nameof(ResetState), 3f);
+            Invoke(nameof(ResetDeLEtat), 3f);
         }
         else
         {
-            GameOver();
+            FinDePartie();
         }
     }
 
@@ -162,14 +174,14 @@ public class GameManager : MonoBehaviour
     /// un fantome mangé
     /// </summary>
     /// <param name="ghost"></param>
-    public void GhostEaten(Ghost ghost)
+    public void FantomeMange(Ghost ghost)
     {
         if (SoundManager.instance != null)
         {
             SoundManager.instance.JouerSonMange();
         }
         int points = ghost.points * ghostMultiplier;
-        SetScore(score + points);
+        AJustementDuScore(score + points);
 
         ghostMultiplier++;
     }
@@ -178,16 +190,16 @@ public class GameManager : MonoBehaviour
     /// Un pellet normal mangé
     /// </summary>
     /// <param name="pellet"></param>
-    public void PelletEaten(Pellet pellet)
+    public void PelletNormalManger(Pellet pellet)
     {
         pellet.gameObject.SetActive(false);
 
-        SetScore(score + pellet.points);
-        if (!HasRemainingPellets())
+        AJustementDuScore(score + pellet.points);
+        if (!VerifierExistancePelette())
         {
             pacman.gameObject.SetActive(false);
             round++;
-            Invoke(nameof(NewRound), 3f);
+            Invoke(nameof(NouveauNiveau), 3f);
         }
     }
 
@@ -195,7 +207,7 @@ public class GameManager : MonoBehaviour
     /// Un powerpellet mangé
     /// </summary>
     /// <param name="pellet"></param>
-    public void PowerPelletEaten(PowerPellet pellet)
+    public void MangerPowerPelette(PowerPellet pellet)
     {
         if (SoundManager.instance != null)
         {
@@ -206,9 +218,9 @@ public class GameManager : MonoBehaviour
             ghosts[i].frightened.Enable(pellet.duration);
         }
 
-        PelletEaten(pellet);
-        CancelInvoke(nameof(ResetGhostMultiplier));
-        Invoke(nameof(ResetGhostMultiplier), pellet.duration);
+        PelletNormalManger(pellet);
+        CancelInvoke(nameof(ReinitialiserLeMultiplicateurDeVitesse));
+        Invoke(nameof(ReinitialiserLeMultiplicateurDeVitesse), pellet.duration);
     }
 
 
@@ -216,7 +228,7 @@ public class GameManager : MonoBehaviour
     /// Verifier si il reste au moins une pelette
     /// </summary>
     /// <returns></returns>
-    private bool HasRemainingPellets()
+    private bool VerifierExistancePelette()
     {
         foreach (Transform pellet in pellets)
         {
@@ -233,7 +245,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Reset le multiplicateur de vitesse
     /// </summary>
-    private void ResetGhostMultiplier()
+    private void ReinitialiserLeMultiplicateurDeVitesse()
     {
         ghostMultiplier = 1;
     }

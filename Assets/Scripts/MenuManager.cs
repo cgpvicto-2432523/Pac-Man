@@ -9,17 +9,15 @@ public class MenuManager : MonoBehaviour
     /// <summary>
     /// Charge la scène Level1 quand on clique sur Play
     /// </summary>
-    public void PlayGame()
+    public void StartJeu()
     {
-        Debug.Log("Bouton Play cliqué!");
         SceneManager.LoadScene("Level1");
-        Debug.Log("Chargement Level1...");
     }
 
     /// <summary>
     /// Quitte le jeu 
     /// </summary>
-    public void QuitGame()
+    public void Quitter()
     {
         Application.Quit();
     }

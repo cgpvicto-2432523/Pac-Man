@@ -31,16 +31,16 @@ public class Pacman : MonoBehaviour
     {
         
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
-            movement.SetDirection(Vector2.up);
+            movement.DefinirLaDirection(Vector2.up);
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
-            movement.SetDirection(Vector2.down);
+            movement.DefinirLaDirection(Vector2.down);
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
-            movement.SetDirection(Vector2.left);
+            movement.DefinirLaDirection(Vector2.left);
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
-            movement.SetDirection(Vector2.right);
+            movement.DefinirLaDirection(Vector2.right);
         }
 
         // Rotation du packman afin qu'il regarde le direction
@@ -48,7 +48,10 @@ public class Pacman : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.forward);
     }
 
-    public void ResetState()
+    /// <summary>
+    /// 
+    /// </summary>
+    public void ResetDeLEtat()
     {
         enabled = true;
         spriteRenderer.enabled = true;
@@ -59,21 +62,7 @@ public class Pacman : MonoBehaviour
             deathSequence.enabled = false;
         }
 
-        movement.ResetState();
+        movement.ResetDeLEtat();
         gameObject.SetActive(true);
-    }
-
-    public void DeathSequence()
-    {
-        enabled = false;
-        spriteRenderer.enabled = false;
-        circleCollider.enabled = false;
-        movement.enabled = false;
-
-        if (deathSequence != null)  
-        {
-            deathSequence.enabled = true;
-            deathSequence.Restart();
-        }
     }
 }
