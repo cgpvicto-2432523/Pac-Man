@@ -1,20 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[DefaultExecutionOrder(-100)]
+/// <summary>
+/// Game manager
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] private Ghost[] ghosts;
-    [SerializeField] private Pacman pacman;
-    [SerializeField] private Transform pellets;
-    [SerializeField] private Text gameOverText;
-    [SerializeField] private Text scoreText;
-    [SerializeField] private Text livesText;
+    public Ghost[] ghosts;
+    public Pacman pacman;
+    public Transform pellets;
+    public Text gameOverText;
+    public Text scoreText;
+    public Text livesText;
 
-    public int score { get; private set; } = 0;
-    public int lives { get; private set; } = 3;
+    public int score  = 0;
+    public int lives  = 3;
 
     private int ghostMultiplier = 1;
 

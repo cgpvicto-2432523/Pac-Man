@@ -10,7 +10,7 @@ public class Pellet : MonoBehaviour
     /// <summary>
     /// Appelé quand Pacman mange la pelette
     /// </summary>
-    protected virtual void Eat()
+    public virtual void Eat()
     {
         GameManager.Instance.PelletEaten(this);
     }
