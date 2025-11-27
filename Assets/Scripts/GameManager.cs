@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void Start()
     {
         NewGame();
     }
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
         SetScore(0);
         SetLives(3);
         NewRound();
+
     }
 
     private void NewRound()
@@ -64,6 +66,7 @@ public class GameManager : MonoBehaviour
         }
 
         ResetState();
+        SceneManager.LoadScene("Level1");
     }
 
     private void ResetState()
