@@ -3,12 +3,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
-/// Game manager
+/// Game manager - Version simplifiée
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static GameManager Instance;
 
+    [Header("Assigne manuellement dans l'Inspector")]
     public Ghost[] ghosts;
     public Pacman pacman;
     public Transform pellets;
@@ -16,35 +17,25 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Text livesText;
 
-    public int score  = 0;
-    public int lives  = 3;
+    public int score = 0;
+    public int lives = 3;
 
     private int ghostMultiplier = 1;
 
     private void Awake()
     {
-        if (Instance != null) {
-            DestroyImmediate(gameObject);
-        } else {
-            Instance = this;
-        }
+        Instance = this;
     }
 
-    private void OnDestroy()
-    {
-        if (Instance == this) {
-            Instance = null;
-        }
-    }
-
-    public void Start()
+    private void Start()
     {
         NewGame();
     }
 
     private void Update()
     {
-        if (lives <= 0 && Input.anyKeyDown) {
+        if (lives <= 0 && Input.anyKeyDown)
+        {
             NewGame();
         }
     }
@@ -54,24 +45,24 @@ public class GameManager : MonoBehaviour
         SetScore(0);
         SetLives(3);
         NewRound();
-
     }
 
     private void NewRound()
     {
         gameOverText.enabled = false;
 
-        foreach (Transform pellet in pellets) {
+        foreach (Transform pellet in pellets)
+        {
             pellet.gameObject.SetActive(true);
         }
 
         ResetState();
-        SceneManager.LoadScene("Level1");
     }
 
     private void ResetState()
     {
-        for (int i = 0; i < ghosts.Length; i++) {
+        for (int i = 0; i < ghosts.Length; i++)
+        {
             ghosts[i].ResetState();
         }
 
@@ -82,7 +73,8 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.enabled = true;
 
-        for (int i = 0; i < ghosts.Length; i++) {
+        for (int i = 0; i < ghosts.Length; i++)
+        {
             ghosts[i].gameObject.SetActive(false);
         }
 
@@ -107,9 +99,12 @@ public class GameManager : MonoBehaviour
 
         SetLives(lives - 1);
 
-        if (lives > 0) {
+        if (lives > 0)
+        {
             Invoke(nameof(ResetState), 3f);
-        } else {
+        }
+        else
+        {
             GameOver();
         }
     }
@@ -137,7 +132,8 @@ public class GameManager : MonoBehaviour
 
     public void PowerPelletEaten(PowerPellet pellet)
     {
-        for (int i = 0; i < ghosts.Length; i++) {
+        for (int i = 0; i < ghosts.Length; i++)
+        {
             ghosts[i].frightened.Enable(pellet.duration);
         }
 
@@ -150,7 +146,8 @@ public class GameManager : MonoBehaviour
     {
         foreach (Transform pellet in pellets)
         {
-            if (pellet.gameObject.activeSelf) {
+            if (pellet.gameObject.activeSelf)
+            {
                 return true;
             }
         }
@@ -162,5 +159,4 @@ public class GameManager : MonoBehaviour
     {
         ghostMultiplier = 1;
     }
-
 }

@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 278868602}
   m_Layer: 5
   m_Name: LivesText
-  m_TagString: Untagged
+  m_TagString: LivesText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1664,7 +1664,7 @@ GameObject:
   - component: {fileID: 1133529214}
   m_Layer: 5
   m_Name: GameOverText
-  m_TagString: Untagged
+  m_TagString: GameOverText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7848,7 +7848,7 @@ GameObject:
   - component: {fileID: 1910537629}
   m_Layer: 8
   m_Name: Pellets
-  m_TagString: Untagged
+  m_TagString: Pellets
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10444,7 +10444,7 @@ GameObject:
   - component: {fileID: 1945791160}
   m_Layer: 5
   m_Name: ScoreText
-  m_TagString: Untagged
+  m_TagString: ScoreText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
