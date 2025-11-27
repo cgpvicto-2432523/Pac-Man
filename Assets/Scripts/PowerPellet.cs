@@ -8,5 +8,4 @@ public class PowerPellet : Pellet
     {
         GameManager.Instance.PowerPelletEaten(this);
     }
-
 }
