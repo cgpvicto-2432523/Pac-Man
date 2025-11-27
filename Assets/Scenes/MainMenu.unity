@@ -750,9 +750,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 963305345}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd1b6010de86e1747a9fc752d85c1fb9, type: 3}
+  m_Script: {fileID: 11500000, guid: d2bf445c53cf5dd43bb5f47ad6f11f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  ghosts: []
+  pacman: {fileID: 0}
+  pellets: {fileID: 0}
+  gameOverText: {fileID: 0}
+  scoreText: {fileID: 0}
+  livesText: {fileID: 0}
 --- !u!4 &963305347
 Transform:
   m_ObjectHideFlags: 0
@@ -1107,7 +1113,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 963305346}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: CommencerLeJeu
+        m_MethodName: Start
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
