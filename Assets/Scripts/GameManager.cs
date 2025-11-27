@@ -118,7 +118,10 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         gameOverText.enabled = true;
-
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.JouerSonDefaite();
+        }
         for (int i = 0; i < ghosts.Length; i++)
         {
             ghosts[i].gameObject.SetActive(false);
@@ -161,6 +164,10 @@ public class GameManager : MonoBehaviour
     /// <param name="ghost"></param>
     public void GhostEaten(Ghost ghost)
     {
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.JouerSonMange();
+        }
         int points = ghost.points * ghostMultiplier;
         SetScore(score + points);
 
@@ -190,6 +197,10 @@ public class GameManager : MonoBehaviour
     /// <param name="pellet"></param>
     public void PowerPelletEaten(PowerPellet pellet)
     {
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.JouerSonCollecte();
+        }
         for (int i = 0; i < ghosts.Length; i++)
         {
             ghosts[i].frightened.Enable(pellet.duration);
